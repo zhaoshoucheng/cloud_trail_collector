@@ -1,0 +1,33 @@
+#目前支持四种类型 hw_audit、tencent_audit、ali_audit、aws_audit
+worker = 4
+
+[[input]]
+type = "aws_cloud_trail"
+endpoint = ""
+access_key = "xxxxxxx" #ak
+secret_key = "xxxxxx" #sk
+region_id = "ap-southeast-1"
+[[input]]
+type = "ali_cloud_trail"
+endpoint = "actiontrail.ap-southeast-1.aliyuncs.com"
+access_key = "xxxxxxx" #ak
+secret_key = "xxxxxxx" #sk
+region_id = ""
+
+
+
+[[output]]
+type = "elastic"
+condition = "type == ali_cloud_trail"
+index = "ali_cloud_operation"
+end_points = ["http://127.0.0.1:9200"]
+username = "xxxx"
+password = "xxxxxxx"
+
+[[output]]
+type = "elastic"
+condition = "type == aws_cloud_trail"
+index = "aws_cloud_operation"
+end_points = ["http://127.0.0.1:9200"]
+username = "xxxxx"
+password = "xxxxx"
